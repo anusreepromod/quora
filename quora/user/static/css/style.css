@@ -1,0 +1,18 @@
+.img2 {
+    height: 120%;
+    width: 600px;
+    border-color: white;
+    padding-top: 25px;
+    padding-left: 10px;
+}
+
+.lf1 {
+    /* background-color: rgb(197, 210, 228); */
+    /* border: 1px;
+    border-style: solid; */
+    padding: 10px 10px 10px 10px;
+    margin: 100px 50px 20px 150px;
+    /* text-align: center; */
+    height: 350px;
+    width: 400px;
+}

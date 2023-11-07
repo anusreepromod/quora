@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+            integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css"
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">   
+            <style>
+                .center {
+                  margin: auto;
+                  width: 80%;
+                  margin-top: 30px;
+                  padding: 10px;
+                }
+                </style>
+    <script>
+   window.onload=function(){
+       loaddata()
+   }
+    
+</script>
+        </head>
+<body>
+     <!-- navbar -->
+     <div class="row">
+        <div class="col-lg-12">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top ">
+                <a class="navbar-brand mr-0 px-3" href="#">Quora</a>
+                <button class="navbar-toggler d-md-none collapsed" type="button" data-toggle="collapse"
+                    data-target="#sidebarmenu" aria-controls="sidebarmenu" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="sidebarmenu">  
+                    <ul class="navbar-nav ml-auto ">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="#" id="navbarDropdownProfile" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                    <i class='fas fa-user-cog' style='font-size:20px' id="p"></i>
+                                </p>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+                                <a class="dropdown-item" href="/user/logout/">Log out</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="#" id="navbarDropdownProfile" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                               
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                            Create a Post
+                        </button>
+  
+  
+                            </a>
+                    
+                        </li>
+                    </ul>
+                </div>
+
+            </nav>
+        </div>
+    </div>
+    <div class="center">
+        <div class="form-group">
+            <table border=1>
+              <tr>
+                <th>id</th>
+                <th hidden>user_id</th>
+                <th>Title</th>
+                <th>Posts</th>
+                
+              </tr>
+              {% for posts in posts %}
+              <tr>
+                <th><input class="form-control" id ="pid" value={{posts.id}}></th>
+                <th hidden><input class="form-control" id ="userid" value={{posts.user_id_id}}></th>
+                <th><input class="form-control" id ="titles" value={{posts.post_title}}></th>
+                <th><input class="form-control" id ="postss" value={{posts.posts}}></th>
+                <th>
+                  <button type="button" class="btn" data-toggle="modal" data-target="#myModal{{posts.id}}"><i class='fas fa-comment'></i>
+                  </button>
+                  <button type="button" class="btn" onclick="like('{{posts.id}}')"><i class='fas fa-thumbs-up'></i>
+                  </button>
+                </th>
+                  <!-- The Modal -->
+                  <div class="modal" id="myModal{{posts.id}}">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+    
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+    
+                          <button type="button" class="close" data-dismiss="modal" >&times;</button>
+                        </div>
+    
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                          <div class="form-group">
+                              <input class="form-control" hidden id ="cid" value={{posts.id}}>
+                              <input class="form-control" hidden id ="user_id" value={{posts.user_id_id}}>
+                              <textarea name="" id="mycomment{{posts.id}}" cols="30" rows="10"></textarea>
+                          </div>
+                        </div>
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="comments('{{posts.id}}')">Add Comments</button>
+                        </div>
+    
+                      </div>
+                    </div>
+                  </div>
+                
+                <th>
+                    <button type="button" class="btn" data-toggle="modal" data-target="#commentModal"onclick="view('{{posts.id}}')"><i class='fas fa-eye'></i>
+                    </button>
+                </th>
+              </tr>
+            {% endfor %}
+            </table>
+              </div>
+       
+    </div>
+<!-- Modal -->
+<div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+            
+            <div class="row">
+                    <div class="col-md-8">
+                        <table class="table" id="table">
+                            <tr>
+                                <th>comments</th>
+                              </tr>
+                        </table>
+                    </div>
+                </div>
+                
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Create Post</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <input type="text" placeholder="Enter Post Title" id="title">
+            <textarea class="form-control" rows="10" name="notify" cols="50" id="posts" ></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="posts()">Post</button>
+        </div>
+      </div>
+    </div>
+   
+  </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+        crossorigin="anonymous"></script>
+        <script>
+           
+function like(lid){
+    
+    $.ajaxSetup({
+  headers: { "X-CSRFToken": '{{csrf_token}}' }
+});
+    $.ajax({
+        url:'/user/like/',
+        type:'POST',
+        data:{
+            id:lid,
+            user_id:$('#userid').val(),
+        },
+        success: function(response){
+            
+        }
+    })
+   }
+   function posts(){
+        $.ajaxSetup({
+          headers: { "X-CSRFToken": '{{csrf_token}}' }
+           });
+           $.ajax({
+               url:'/user/posts/',
+               type:'POST',
+               data:{   
+                   title:$('#title').val(),
+                   posts:$('#posts').val(),
+
+               },
+               success: function(response){
+                    loaddata()
+               }
+           })
+       }
+
+   function comments(coid){
+        $.ajaxSetup({
+          headers: { "X-CSRFToken": '{{csrf_token}}' }
+           });
+           $.ajax({
+               url:'/user/comment/',
+               type:'POST',
+               data:{
+                    id:coid,
+                    user_id:$('#user_id').val(),
+                    comment:$('#mycomment'+coid).val(),
+               },
+               success: function(response){
+                    loaddata()
+               }
+           })
+       }
+       function view(pid){
+       
+        $.ajaxSetup({
+          headers: { "X-CSRFToken": '{{csrf_token}}' }
+           });
+           $.ajax({
+               url:'/user/viewcomment/',
+               type:'POST',
+               data:{
+                    id:pid,
+               },
+               success: function(response){
+                $('.tr').remove()
+               for(i=0;i<response.comments.length;i++){
+                $('#table').append("<tr class='tr'><td>"+response.comments[i].comments+"</td></tr>")
+        
+
+               }
+                    
+               }
+           })}
+        </script>
+</body>
+
+</html>
